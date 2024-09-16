@@ -1,11 +1,31 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import styles from './ImageModal.module.css';
 
 Modal.setAppElement('#root');
 
-const ImageModal = ({ isOpen, onRequestClose, image }) => {
+// Визначаємо тип для зображення
+interface User {
+  name: string;
+}
+
+interface Image {
+  urls: {
+    regular: string;
+  };
+  alt_description?: string;
+  user: User;
+  likes?: number;
+  description?: string;
+}
+
+interface ImageModalProps {
+  isOpen: boolean;
+  onRequestClose: () => void;
+  image?: Image;
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onRequestClose, image }) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -28,22 +48,6 @@ const ImageModal = ({ isOpen, onRequestClose, image }) => {
       )}
     </Modal>
   );
-};
-
-ImageModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onRequestClose: PropTypes.func.isRequired,
-  image: PropTypes.shape({
-    urls: PropTypes.shape({
-      regular: PropTypes.string.isRequired,
-    }),
-    alt_description: PropTypes.string,
-    user: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }),
-    likes: PropTypes.number,
-    description: PropTypes.string,
-  }),
 };
 
 export default ImageModal;

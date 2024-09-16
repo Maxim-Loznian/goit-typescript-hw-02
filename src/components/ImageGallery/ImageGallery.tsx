@@ -1,9 +1,15 @@
+// src/components/ImageGallery/ImageGallery.tsx
 import React from 'react';
-import PropTypes from 'prop-types';
 import ImageCard from '../ImageCard/ImageCard';
+import { Image } from '../../types'; // Імпортуйте тип Image
 import styles from './ImageGallery.module.css';
 
-const ImageGallery = ({ images, onImageClick }) => {
+interface ImageGalleryProps {
+  images: Image[];
+  onImageClick: (image: Image) => void;
+}
+
+const ImageGallery: React.FC<ImageGalleryProps> = ({ images, onImageClick }) => {
   return (
     <ul className={styles.imageGallery}>
       {images.map((image) => (
@@ -13,15 +19,6 @@ const ImageGallery = ({ images, onImageClick }) => {
       ))}
     </ul>
   );
-};
-
-ImageGallery.propTypes = {
-  images: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  onImageClick: PropTypes.func.isRequired,
 };
 
 export default ImageGallery;
