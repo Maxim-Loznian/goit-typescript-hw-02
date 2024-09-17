@@ -8,7 +8,7 @@ import Loader from './components/Loader/Loader';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
-import { Image } from './types'; // Імпортуйте тип Image
+import { Image, ResponseData } from './types'; // Імпортуємо потрібні типи
 import './App.css';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
@@ -25,7 +25,7 @@ const App = () => {
   const fetchImages = async (searchQuery: string, pageNumber: number) => {
     setLoading(true);
     try {
-      const response = await axios.get(API_URL, {
+      const response = await axios.get<ResponseData>(API_URL, {
         params: {
           query: searchQuery,
           page: pageNumber,
